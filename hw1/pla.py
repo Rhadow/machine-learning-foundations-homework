@@ -1,3 +1,4 @@
+import math
 import random
 import numpy as np
 from data_parser import parse_input
@@ -22,7 +23,13 @@ def count_weight_error(W, X, Y):
     return err_count
 
 
-def train(X, Y, is_random_seq=False, eta=1, is_pocket=True, learning_loop=50):
+def train(
+        X,
+        Y,
+        is_random_seq=False,
+        eta=1,
+        is_pocket=True,
+        learning_loop=math.inf):
     is_all_data_match = False
     update_count = 0
     loop_count = 0

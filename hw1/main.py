@@ -46,7 +46,7 @@ if __name__ == '__main__':
     # total = 0
     # for i in range(2000):
     #     print(i)
-    #     W, count = train(nl_X, nl_Y, is_random_seq=True)
+    #     W, count = train(nl_X, nl_Y, is_random_seq=True, learning_loop=50)
     #     err_rate = count_weight_error(W, test_X, test_Y) / len(test_Y)
     #     total += err_rate
     # print(total / 2000)
@@ -55,7 +55,12 @@ if __name__ == '__main__':
     # total = 0
     # for i in range(2000):
     #     print(i)
-    #     W, count = train(nl_X, nl_Y, is_random_seq=True, is_pocket=False)
+    #     W, count = train(
+    #         nl_X,
+    #         nl_Y,
+    #         is_random_seq=True,
+    #         is_pocket=False,
+    #         learning_loop=50)
     #     err_rate = count_weight_error(W, test_X, test_Y) / len(test_Y)
     #     total += err_rate
     # print(total / 2000)
