@@ -13,7 +13,7 @@ function countError(data, theta, s) {
     return errorCount / data.length;
 }
 
-function train(data) {
+function train(data, dimension) {
     let eIn = data.length + 1,
         theta, s, tempErr, bestTheta, bestS;
 
@@ -32,13 +32,15 @@ function train(data) {
             eIn = tempErr;
             bestTheta = theta;
             bestS = s;
+            dimension = dimension;
         }
     });
 
     return {
         theta: bestTheta,
         s: bestS,
-        eIn
+        eIn,
+        dimension
     };
 }
 
