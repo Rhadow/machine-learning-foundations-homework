@@ -25,6 +25,7 @@ function train(data, dimension) {
             eIn = tempErr;
             bestTheta = theta;
             bestS = s;
+            dimension = dimension;
         }
         s = -1;
         tempErr = countError(data, theta, s);
