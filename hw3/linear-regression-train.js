@@ -1,4 +1,4 @@
-import { matrix, transpose, inverse, dot } from 'mathjs';
+import { dot, inv, transpose } from 'numeric';
 
 export default function train(data) {
     let X = data.map((d) => {
@@ -7,6 +7,6 @@ export default function train(data) {
     let Y = data.map((d) => {
         return d[2];
     });
-    // let wDagger = /*dot(inverse(*/dot(transpose(X), X)/*), transpose(X));*/
-    console.log(dot(transpose([[1,2],[2,1]]), [[1,2],[2,1]]));
+    let wDagger = dot(inv(dot(transpose(X), X)), transpose(X));
+    let w = dot(wDagger, Y);
 };
