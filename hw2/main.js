@@ -15,8 +15,8 @@ let eInTotal = 0,
     validationResult;
 
 console.log('Reading data from file...');
-trainingData = fs.readFileSync('./train-data.dat').toString();
-validationData = fs.readFileSync('./test-data.dat').toString();
+trainingData = fs.readFileSync('./hw2/train-data.dat').toString();
+validationData = fs.readFileSync('./hw2/test-data.dat').toString();
 
 console.log('Parsing data...\n');
 trainingData = parseData(trainingData);
