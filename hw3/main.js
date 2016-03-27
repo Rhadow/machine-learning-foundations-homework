@@ -1,5 +1,7 @@
+import fs from 'fs';
 import { generateLRData } from './data-generator';
 import LinearRegressionTrain from './linear-regression-train';
+import parseData from './data-parser.js';
 
 let linearRegressionTransformedData,
     linearRegressionData;
@@ -10,7 +12,7 @@ for (let i = 0; i < 1000; i++) {
     let { w, errRate } = LinearRegressionTrain(linearRegressionData);
     lrEin += errRate;
 }
-console.log(`Error rate for linear regression is: ${lrEin / 1000}`);
+console.log(`Error rate for linear regression is: ${lrEin / 1000}\n`);
 
 // Q14
 let finalW = [0,0,0,0,0,0];
@@ -22,7 +24,7 @@ for (let j = 0; j < 1000; j++) {
     });
 }
 finalW = finalW.map((feature) => feature / 1000);
-console.log(`Closest W for transformed linear regression is: ${finalW}`);
+console.log(`Closest W for transformed linear regression is: ${finalW}\n`);
 
 // Q15
 let result = [];
@@ -40,4 +42,14 @@ for (let i = 0; i < 1000; i++) {
 
     result = result.filter((r) => !r);
 }
-console.log(`Error rate for linear regression is: ${result.length / 1000}`);
+console.log(`Error rate for linear regression is: ${result.length / 1000}\n`);
+
+// Q18
+console.log('Reading data from file...');
+let trainingData = fs.readFileSync('./hw3/ntumlone-hw3-hw3_train.dat').toString();
+let validationData = fs.readFileSync('./hw3/ntumlone-hw3-hw3_test.dat').toString();
+console.log('Parsing data...\n');
+trainingData = parseData(trainingData);
+validationData = parseData(validationData);
+console.log(trainingData[0]);
+console.log(validationData[0]);
