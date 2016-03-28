@@ -49,9 +49,17 @@ console.log(`Error rate for linear regression is: ${result.length / 1000}\n`);
 console.log('Reading data from file...');
 let trainingData = fs.readFileSync('./hw3/ntumlone-hw3-hw3_train.dat').toString();
 let validationData = fs.readFileSync('./hw3/ntumlone-hw3-hw3_test.dat').toString();
-console.log('Parsing data...\n');
+console.log('Parsing data...');
 trainingData = parseData(trainingData);
 validationData = parseData(validationData);
 let trainedW = logisticTrain(trainingData, 0.001, 2000);
 let Eout = calcEout(validationData, trainedW, zeroOneError);
 console.log(`Eout for eta = 0.001 and T = 2000 is ${Eout}`);
+// Q19
+trainedW = logisticTrain(trainingData, 0.01, 2000);
+Eout = calcEout(validationData, trainedW, zeroOneError);
+console.log(`Eout for eta = 0.01 and T = 2000 is ${Eout}`);
+// Q20
+trainedW = logisticTrain(trainingData, 0.001, 2000, true);
+Eout = calcEout(validationData, trainedW, zeroOneError);
+console.log(`Eout for SGD with eta = 0.001 and T = 2000 is ${Eout}`);
