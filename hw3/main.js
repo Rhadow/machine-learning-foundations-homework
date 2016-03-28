@@ -2,6 +2,7 @@ import fs from 'fs';
 import { generateLRData } from './data-generator';
 import LinearRegressionTrain from './linear-regression-train';
 import parseData from './data-parser.js';
+import { logisticTrain, calcEout, zeroOneError } from './logistic-regression-train';
 
 let linearRegressionTransformedData,
     linearRegressionData;
@@ -51,5 +52,6 @@ let validationData = fs.readFileSync('./hw3/ntumlone-hw3-hw3_test.dat').toString
 console.log('Parsing data...\n');
 trainingData = parseData(trainingData);
 validationData = parseData(validationData);
-console.log(trainingData[0]);
-console.log(validationData[0]);
+let trainedW = logisticTrain(trainingData, 0.001, 2000);
+let Eout = calcEout(validationData, trainedW, zeroOneError);
+console.log(`Eout for eta = 0.001 and T = 2000 is ${Eout}`);
