@@ -38,8 +38,8 @@ for (let i = 2; i > -11; i--) {
 }
 
 minEinResult = lamdaList.reduce((result, lambda) => {
-    let temp = LinearRegressionTrain(trainingData, lambda);
-    let tempEOut = zeroOneError(testData, temp.w);
+    let temp = LinearRegressionTrain(trainingData, lambda),
+        tempEOut = zeroOneError(testData, temp.w);
     return (temp.errRate < result.minEin) ? {
         lambda: Math.log(lambda) / Math.log(10),
         minEin: temp.errRate,
@@ -50,8 +50,8 @@ minEinResult = lamdaList.reduce((result, lambda) => {
 console.log(`Q14: Minimum Ein is achieved by log(lambda) = ${minEinResult.lambda} and Ein is ${minEinResult.minEin} with Eout equal to ${minEinResult.Eout}`);
 
 minEoutResult = lamdaList.reduce((result, lambda) => {
-    let temp = LinearRegressionTrain(trainingData, lambda);
-    let tempEOut = zeroOneError(testData, temp.w);
+    let temp = LinearRegressionTrain(trainingData, lambda),
+        tempEOut = zeroOneError(testData, temp.w);
     return (tempEOut < result.minEout) ? {
         lambda: Math.log(lambda) / Math.log(10),
         Ein: temp.errRate,
@@ -60,3 +60,53 @@ minEoutResult = lamdaList.reduce((result, lambda) => {
 }, minEoutResult);
 
 console.log(`Q15: Minimum Eout is achieved by log(lambda) = ${minEoutResult.lambda} and Ein is ${minEoutResult.Ein} with Eout equal to ${minEoutResult.minEout}`);
+
+// Q16 & 17
+let trainingSet = trainingData.slice(0, 120),
+    validationSet = trainingData.slice(120),
+    minEtrainResult = {
+        lambda: undefined,
+        Etrain: Infinity,
+        Eval: undefined,
+        Eout: undefined
+    },
+    minEvalResult = {
+        lambda: undefined,
+        Etrain: undefined,
+        Eval: Infinity,
+        Eout: undefined
+    };
+
+minEtrainResult = lamdaList.reduce((result, lambda) => {
+    let temp = LinearRegressionTrain(trainingSet, lambda),
+        tempEval = zeroOneError(validationSet, temp.w),
+        tempEOut = zeroOneError(testData, temp.w);
+    return (temp.errRate < result.Etrain) ? {
+        lambda: Math.log(lambda) / Math.log(10),
+        Etrain: temp.errRate,
+        Eval: tempEval,
+        Eout: tempEOut
+    } : result;
+}, minEtrainResult);
+
+console.log(`Q16: Minimum Etrain is achieved by log(lambda) = ${minEtrainResult.lambda} and Etrain is ${minEtrainResult.Etrain}, Eval is ${minEtrainResult.Eval} and Eout is ${minEtrainResult.Eout}`);
+
+minEvalResult = lamdaList.reduce((result, lambda) => {
+    let temp = LinearRegressionTrain(trainingSet, lambda),
+        tempEval = zeroOneError(validationSet, temp.w),
+        tempEOut = zeroOneError(testData, temp.w);
+    return (tempEval < result.Eval) ? {
+        lambda: Math.log(lambda) / Math.log(10),
+        Etrain: temp.errRate,
+        Eval: tempEval,
+        Eout: tempEOut
+    } : result;
+}, minEvalResult);
+
+console.log(`Q17: Minimum Eval is achieved by log(lambda) = ${minEvalResult.lambda} and Etrain is ${minEvalResult.Etrain}, Eval is ${minEvalResult.Eval} and Eout is ${minEvalResult.Eout}`);
+
+// Q18
+let { w: optimalW, errRate: optimalErr } = LinearRegressionTrain(trainingData, 1);
+Ein = optimalErr;
+EOut = zeroOneError(testData, optimalW);
+console.log(`Q18: With lambda set to 1, Ein is ${Ein} and Eout is ${EOut}`);
