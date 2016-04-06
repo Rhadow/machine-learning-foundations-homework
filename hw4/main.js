@@ -1,6 +1,6 @@
 import fs from 'fs';
 import LinearRegressionTrain from './linear-regression-train';
-import { zeroOneError } from './error-function';
+import { zeroOneError, computeEcv } from './error-function';
 import parseData from '../hw2/data-parser.js';
 
 
@@ -110,3 +110,19 @@ let { w: optimalW, errRate: optimalErr } = LinearRegressionTrain(trainingData, 1
 Ein = optimalErr;
 EOut = zeroOneError(testData, optimalW);
 console.log(`Q18: With lambda set to 1, Ein is ${Ein} and Eout is ${EOut}`);
+
+// Q19
+let minEcvResult = {
+    lambda: undefined,
+    Ecv: Infinity
+};
+
+minEcvResult = lamdaList.reduce((result, lambda) => {
+    let tempEcv = computeEcv(trainingData, lambda);
+    return (tempEcv < result.Ecv) ? {
+        lambda: Math.log(lambda) / Math.log(10),
+        Ecv: tempEcv
+    } : result;
+}, minEcvResult);
+
+console.log(`Q19: Minimum Ecv is achieved by log(lambda) = ${minEcvResult.lambda} and Ecv is ${minEcvResult.Ecv}`);

@@ -1,4 +1,5 @@
 import { dot, transpose } from 'numeric';
+import LinearRegressionTrain from './linear-regression-train';
 
 export function zeroOneError(data, w) {
     let X = data.map((d) => {
@@ -15,4 +16,19 @@ export function zeroOneError(data, w) {
         }, 0);
 
     return err / data.length;
+}
+
+export function computeEcv(data, lambda) {
+    let tempTrainingSet = [],
+        tempValidationSet = [],
+        totalError = 0;
+
+    for (let i = 0; i < 5; i++) {
+        tempValidationSet = data.slice(i * 40, (i + 1) * 40);
+        tempTrainingSet = [...data.slice(0, i * 40), ...data.slice((i + 1) * 40)];
+        let { w, errRate } = LinearRegressionTrain(tempTrainingSet, lambda);
+        totalError += zeroOneError(tempValidationSet, w);
+    }
+
+    return totalError / 5;
 }
