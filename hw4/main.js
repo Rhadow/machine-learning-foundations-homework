@@ -111,7 +111,7 @@ Ein = optimalErr;
 EOut = zeroOneError(testData, optimalW);
 console.log(`Q18: With lambda set to 1, Ein is ${Ein} and Eout is ${EOut}`);
 
-// Q19
+// Q19 & 20
 let minEcvResult = {
     lambda: undefined,
     Ecv: Infinity
@@ -126,3 +126,7 @@ minEcvResult = lamdaList.reduce((result, lambda) => {
 }, minEcvResult);
 
 console.log(`Q19: Minimum Ecv is achieved by log(lambda) = ${minEcvResult.lambda} and Ecv is ${minEcvResult.Ecv}`);
+
+let { w: optW, errRate: optErr } = LinearRegressionTrain(trainingData, Math.pow(10, -8));
+EOut = zeroOneError(testData, optW);
+console.log(`Q20: With lambda set to log10(-8), Ein = ${optErr} and Eout = ${EOut}`);
