@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "hw2": "babel-node ./hw2/main.js",
-    "hw3": "babel-node ./hw3/main.js"
+    "hw3": "babel-node ./hw3/main.js",
+    "hw4": "babel-node ./hw4/main.js"
   },
   "author": "",
   "license": "ISC",
